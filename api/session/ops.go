@@ -1,9 +1,20 @@
 package session
 
-import "sync"
+import (
+	"sync"
+	_ "../defs"
+	"../dbops"
+	)
 
-type SimpleSession struct {
-	Username string
-	TTL int64
+var sessionMap *sync.Map
+func init(){
+	sessionMap=&sync.Map{}
 }
-var session *sync.Map
+func deleteExpiredSession(sid string){
+	sessionMap.Delete(sid)
+	dbops.DeleteSession(sid)
+}
+func LoadSessionsFromDB()  {
+	res,err:=dbops.
+	
+}
